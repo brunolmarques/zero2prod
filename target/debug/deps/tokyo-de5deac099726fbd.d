@@ -1,0 +1,13 @@
+/Users/bruno/Exercism/rust/zero2prod/target/debug/deps/tokyo-de5deac099726fbd.rmeta: /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/lib.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/analyzer.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/analyzer/bullet.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/analyzer/player.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/behavior.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/geom.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/models.rs
+
+/Users/bruno/Exercism/rust/zero2prod/target/debug/deps/libtokyo-de5deac099726fbd.rlib: /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/lib.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/analyzer.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/analyzer/bullet.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/analyzer/player.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/behavior.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/geom.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/models.rs
+
+/Users/bruno/Exercism/rust/zero2prod/target/debug/deps/tokyo-de5deac099726fbd.d: /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/lib.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/analyzer.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/analyzer/bullet.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/analyzer/player.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/behavior.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/geom.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/models.rs
+
+/Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/lib.rs:
+/Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/analyzer.rs:
+/Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/analyzer/bullet.rs:
+/Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/analyzer/player.rs:
+/Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/behavior.rs:
+/Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/geom.rs:
+/Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/tokyo-1.0.0/src/models.rs:

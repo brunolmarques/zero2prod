@@ -1,0 +1,11 @@
+/Users/bruno/Exercism/rust/zero2prod/target/debug/deps/parking_lot_core-55dbfe15fb34b5ec.rmeta: /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.6.2/src/lib.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.6.2/src/parking_lot.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.6.2/src/spinwait.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.6.2/src/thread_parker/mod.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.6.2/src/util.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.6.2/src/word_lock.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.6.2/src/thread_parker/unix.rs
+
+/Users/bruno/Exercism/rust/zero2prod/target/debug/deps/parking_lot_core-55dbfe15fb34b5ec.d: /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.6.2/src/lib.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.6.2/src/parking_lot.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.6.2/src/spinwait.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.6.2/src/thread_parker/mod.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.6.2/src/util.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.6.2/src/word_lock.rs /Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.6.2/src/thread_parker/unix.rs
+
+/Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.6.2/src/lib.rs:
+/Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.6.2/src/parking_lot.rs:
+/Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.6.2/src/spinwait.rs:
+/Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.6.2/src/thread_parker/mod.rs:
+/Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.6.2/src/util.rs:
+/Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.6.2/src/word_lock.rs:
+/Users/bruno/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.6.2/src/thread_parker/unix.rs:
