@@ -16,6 +16,21 @@ name = "zero2prod"
 [dependencies]
 actix-web = "4"
 tokio = "1"
+serde = { version = "1", features = ["derive"]}
+config = "0.11"
+
+# Using table-like toml syntax to avoid a super-long line!
+[dependencies.sqlx]
+version = "0.5.7"
+default-features = false
+features = [
+    "runtime-actix-rustls",
+    "macros",
+    "postgres",
+    "uuid",
+    "chrono",
+    "migrate"
+]
 
 # Dev dependencies are used exclusively when running tests
 # They do not get included in the final application binary!
