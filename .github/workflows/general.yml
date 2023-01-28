@@ -44,7 +44,6 @@ jobs:
       run: |
           sudo apt update
           sudo apt-get -y install podman
-          podman pull fedora:latest
       # Checkout creates a copy of the repo in the runner, so code can be accessed 
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -111,7 +110,6 @@ jobs:
       run: |
           sudo apt update
           sudo apt-get -y install podman
-          podman pull fedora:latest
       # Checkout creates a copy of the repo in the runner, so code can be accessed
       - uses: actions/checkout@v2
       # Action specific for Rust, installs Rust toolchain and rustfmt with rustup
@@ -152,7 +150,6 @@ jobs:
       run: |
           sudo apt update
           sudo apt-get -y install podman
-          podman pull fedora:latest
       # Checkout creates a copy of the repo in the runner, so code can be accessed
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -224,7 +221,6 @@ jobs:
       run: |
           sudo apt update
           sudo apt-get -y install podman
-          podman pull fedora:latest
       # Checkout creates a copy of the repo in the runner, so code can be accessed
       - name: Checkout repository
         uses: actions/checkout@v2
