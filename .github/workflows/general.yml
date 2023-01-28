@@ -42,11 +42,6 @@ jobs:
       # Checkout creates a copy of the repo in the runner, so code can be accessed 
       - name: Checkout repository
         uses: actions/checkout@v2
-      # Installs podman on runner
-      # - name: Setup Podman
-      # run: |
-      #     sudo apt update
-      #     sudo apt-get -y install podman
       # Cache creates a local copy of the specified paths, helps improve execution time,
       # however it may require a larger memory footprint
       - name: Cache dependencies
@@ -87,6 +82,11 @@ jobs:
             --features ${{ env.SQLX_FEATURES }}
             --no-default-features
             --locked
+      # Installs podman on runner
+      - name: Setup Podman
+      run: |
+          sudo apt update
+          sudo apt-get -y install podman
       # Install libpq, necessary for Postgres interface
       # Runs the scrip that initialize Postgres
       - name: Migrate database
@@ -143,11 +143,6 @@ jobs:
       # Checkout creates a copy of the repo in the runner, so code can be accessed
       - name: Checkout repository
         uses: actions/checkout@v2
-      # Installs podman on runner
-      - name: Setup Podman
-      run: |
-          sudo apt update
-          sudo apt-get -y install podman
       # Action specific for Rust, installs Rust toolchain and clippy with rustup
       - name: Install stable toolchain
         uses: actions-rs/toolchain@v1
@@ -177,6 +172,11 @@ jobs:
             --features ${{ env.SQLX_FEATURES }}
             --no-default-features
             --locked
+      # Installs podman on runner
+      - name: Setup Podman
+      run: |
+          sudo apt update
+          sudo apt-get -y install podman
       # Install libpq, necessary for Postgres interface
       # Runs the scrip that initialize Postgres      
       - name: Migrate database
@@ -214,11 +214,6 @@ jobs:
       # Checkout creates a copy of the repo in the runner, so code can be accessed
       - name: Checkout repository
         uses: actions/checkout@v2
-      # Installs podman on runner
-      - name: Setup Podman
-      run: |
-          sudo apt update
-          sudo apt-get -y install podman
       # Action specific for Rust, installs Rust toolchain with rustup
       - name: Install stable toolchain
         uses: actions-rs/toolchain@v1
@@ -247,6 +242,11 @@ jobs:
             --features ${{ env.SQLX_FEATURES }}
             --no-default-features
             --locked
+      # Installs podman on runner
+      - name: Setup Podman
+      run: |
+          sudo apt update
+          sudo apt-get -y install podman
       # Install libpq, necessary for Postgres interface
       # Runs the scrip that initialize Postgres      
       - name: Migrate database
