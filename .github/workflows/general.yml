@@ -43,10 +43,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       # Installs podman on runner
-      - name: Setup Podman
-      run: |
-          sudo apt update
-          sudo apt-get -y install podman
+      # - name: Setup Podman
+      # run: |
+      #     sudo apt update
+      #     sudo apt-get -y install podman
       # Cache creates a local copy of the specified paths, helps improve execution time,
       # however it may require a larger memory footprint
       - name: Cache dependencies
