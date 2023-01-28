@@ -44,7 +44,7 @@ jobs:
       run: |
           sudo apt update
           sudo apt-get -y install podman
-          podman pull fedora
+          podman pull fedora:latest
       # Checkout creates a copy of the repo in the runner, so code can be accessed 
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -111,7 +111,7 @@ jobs:
       run: |
           sudo apt update
           sudo apt-get -y install podman
-          podman pull fedora
+          podman pull fedora:latest
       # Checkout creates a copy of the repo in the runner, so code can be accessed
       - uses: actions/checkout@v2
       # Action specific for Rust, installs Rust toolchain and rustfmt with rustup
@@ -147,6 +147,12 @@ jobs:
       SQLX_VERSION: 0.6.2
       SQLX_FEATURES: "rustls,postgres"
     steps:
+      # Installs podman on runner
+      - name: Setup Podman
+      run: |
+          sudo apt update
+          sudo apt-get -y install podman
+          podman pull fedora:latest
       # Checkout creates a copy of the repo in the runner, so code can be accessed
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -218,7 +224,7 @@ jobs:
       run: |
           sudo apt update
           sudo apt-get -y install podman
-          podman pull fedora
+          podman pull fedora:latest
       # Checkout creates a copy of the repo in the runner, so code can be accessed
       - name: Checkout repository
         uses: actions/checkout@v2
