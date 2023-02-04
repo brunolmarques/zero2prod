@@ -45,11 +45,9 @@ then
     if ! [[ -n $PODMAN_MACHINE_RUNNING ]]; then
         echo >&2 "Starting Podman Machine"
         podman machine init
+        podman machine start
     fi
-
-    # Start podman machine
-    podman machine start
-
+    
     # Launch postgres using Podman
     podman run \
         -e POSTGRES_USER=${DB_USER} \
