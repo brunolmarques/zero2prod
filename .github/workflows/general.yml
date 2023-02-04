@@ -84,9 +84,9 @@ jobs:
             --locked
       # Installs podman on runner
       - name: Setup Podman
-      run: |
-          sudo apt update
-          sudo apt-get -y install podman
+        run: |
+            sudo apt update
+            sudo apt-get -y install podman
       # Install libpq, necessary for Postgres interface
       # Runs the scrip that initialize Postgres
       - name: Migrate database
@@ -174,9 +174,9 @@ jobs:
             --locked
       # Installs podman on runner
       - name: Setup Podman
-      run: |
-          sudo apt update
-          sudo apt-get -y install podman
+        run: |
+            sudo apt update
+            sudo apt-get -y install podman
       # Install libpq, necessary for Postgres interface
       # Runs the scrip that initialize Postgres      
       - name: Migrate database
@@ -244,9 +244,9 @@ jobs:
             --locked
       # Installs podman on runner
       - name: Setup Podman
-      run: |
-          sudo apt update
-          sudo apt-get -y install podman
+        run: |
+            sudo apt update
+            sudo apt-get -y install podman
       # Install libpq, necessary for Postgres interface
       # Runs the scrip that initialize Postgres      
       - name: Migrate database

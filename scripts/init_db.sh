@@ -35,10 +35,21 @@ then
     # if a Postgres container is running, print instructions to kill it and exit
     RUNNING_POSTGRES_CONTAINER=$(podman ps --filter 'name=postgres' --format '{{.ID}}')
     if [[ -n $RUNNING_POSTGRES_CONTAINER ]]; then
-    echo >&2 "There is a Postgres container already running, kill it with"
-    echo >&2 "    podman kill ${RUNNING_POSTGRES_CONTAINER}"
-    exit 1
+        echo >&2 "There is a Postgres container already running, kill it with"
+        echo >&2 "    podman kill ${RUNNING_POSTGRES_CONTAINER}"
+        exit 1
     fi
+    
+    # Initialize podman VM
+    PODMAN_MACHINE_RUNNING=$(podman ps)
+    if ! [[ -n $PODMAN_MACHINE_RUNNING ]]; then
+        echo >&2 "Starting Podman Machine"
+        podman machine init
+    fi
+
+    # Start podman machine
+    podman machine start
+
     # Launch postgres using Podman
     podman run \
         -e POSTGRES_USER=${DB_USER} \
