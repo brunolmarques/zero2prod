@@ -32,6 +32,20 @@ DB_PORT="${POSTGRES_PORT:=5432}"
 # Launch postgres using Podman
 if [[ $1 ]]
 then
+    # Initialize podman VM
+    PODMAN_MACHINE=$(podman machine list --format "{{.Name}}")
+    if ! [[ -n ${PODMAN_MACHINE%?} ]]; then
+        echo >&2 "Initializing Podman Machine"
+        podman machine init
+    fi
+    
+    # Check if podman machine is running
+    PODMAN_MACHINE_RUNNING=$(podman machine inspect ${PODMAN_MACHINE%?} | grep "State" | grep -o '"[^"]*"$')
+    if [[ $PODMAN_MACHINE_RUNNING=="" ]]; then
+        echo >&2 "Starting Podman Machine"
+        podman machine start ${PODMAN_MACHINE%?}
+    fi     
+    
     # if a Postgres container is running, print instructions to kill it and exit
     RUNNING_POSTGRES_CONTAINER=$(podman ps --filter 'name=postgres' --format '{{.ID}}')
     if [[ -n $RUNNING_POSTGRES_CONTAINER ]]; then
@@ -40,20 +54,12 @@ then
         exit 1
     fi
     
-    # Initialize podman VM
-    PODMAN_MACHINE_RUNNING=$(podman ps)
-    if ! [[ -n $PODMAN_MACHINE_RUNNING ]]; then
-        echo >&2 "Starting Podman Machine"
-        podman machine init
-        podman machine start
-    fi
-    
     # Launch postgres using Podman
     podman run \
         -e POSTGRES_USER=${DB_USER} \
         -e POSTGRES_PASSWORD=${DB_PASSWORD} \
         -e POSTGRES_DB=${DB_NAME} \
-        -p "${DB_PORT}" \
+        -p "${DB_PORT}:5432" \
         -d \
         --name "postgres_$(date '+%s')" \
         docker.io/library/postgres \
@@ -67,7 +73,7 @@ export PGPASSWORD="${DB_PASSWORD}"
 # Keep pinging Postgres until it's ready to accept commands
 until psql -h "localhost" -U "${DB_USER}" -p "${DB_PORT}" -d "postgres" -c '\q'; do 
     >&2 echo "Postgres is still unavailable - sleeping" 
-    sleep 1 
+    sleep 5 
 done
 
 >&2 echo "Postgres is up and running on port ${DB_PORT} - running migrations now!" 
