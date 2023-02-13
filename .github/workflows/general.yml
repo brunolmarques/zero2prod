@@ -85,7 +85,6 @@ jobs:
       # Installs podman on runner
       - name: Setup Podman
         run: |
-            sudo apt update
             sudo apt-get -y install podman
       # Install libpq, necessary for Postgres interface
       # Runs the scrip that initialize Postgres
