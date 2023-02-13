@@ -1,8 +1,8 @@
-use sqlx::{PgPool, Executor, PgConnection, Connection};
-use zero2prod::configuration::{get_configuration, DatabaseSettings};
+use sqlx::{Connection, Executor, PgConnection, PgPool};
 use std::net::TcpListener;
-use zero2prod::startup::run;
 use uuid::Uuid;
+use zero2prod::configuration::{get_configuration, DatabaseSettings};
+use zero2prod::startup::run;
 
 pub struct TestApp {
     pub address: String,
@@ -11,37 +11,34 @@ pub struct TestApp {
 
 //Spin up an instance of our application
 async fn spawn_app() -> TestApp {
-    let listener = TcpListener::bind("127.0.0.1:0")
-        .expect("Failed o bind random port.");
+    let listener = TcpListener::bind("127.0.0.1:0").expect("Failed o bind random port.");
     // Retrieve port assigned by OS
     let port = listener.local_addr().unwrap().port();
-    
-    let address = format!("http://127.0.0.1:{}",port);
-    
+
+    let address = format!("http://127.0.0.1:{}", port);
+
     let mut configuration = get_configuration().expect("Failed to read configuration.");
     // Randomize database name, so multiple instances can be spawned for tests
     configuration.database.database_name = Uuid::new_v4().to_string();
 
     let connection_pool = configure_database(&configuration.database).await;
 
-    let server = run(listener, connection_pool.clone())
-        .expect("Failed to bind address.");
-    
-        let _ = tokio::spawn(server);
-    
-        TestApp {
+    let server = run(listener, connection_pool.clone()).expect("Failed to bind address.");
+
+    let _ = tokio::spawn(server);
+
+    TestApp {
         address,
-        db_pool:connection_pool,
+        db_pool: connection_pool,
     }
 }
-
 
 pub async fn configure_database(config: &DatabaseSettings) -> PgPool {
     // Create database
     let mut connection = {
         PgConnection::connect(&config.connection_string_without_db())
-        .await
-        .expect("Failed to connect to Postgres")
+            .await
+            .expect("Failed to connect to Postgres")
     };
     connection
         .execute(format!(r#"CREATE DATABASE "{}";"#, config.database_name).as_str())
@@ -59,7 +56,6 @@ pub async fn configure_database(config: &DatabaseSettings) -> PgPool {
 
     connection_pool
 }
-
 
 #[actix_web::test]
 async fn helath_check_works() {
