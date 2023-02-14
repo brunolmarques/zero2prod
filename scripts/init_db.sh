@@ -33,18 +33,18 @@ DB_PORT="${POSTGRES_PORT:=5432}"
 if [[ $1 ]]
 then
     # # Initialize podman VM
-    PODMAN_MACHINE=$(podman machine list --format "{{.Name}}")
+    # PODMAN_MACHINE=$(podman machine list --format "{{.Name}}")
     # if ! [[ -n ${PODMAN_MACHINE%?} ]]; then
     #     echo >&2 "Initializing Podman Machine"
     #     podman machine init
     # fi
     
-    # Check if podman machine is running
-    PODMAN_MACHINE_RUNNING=$(podman machine inspect ${PODMAN_MACHINE%?} | grep "State" | grep -o '"[^"]*"$')
-    if [[ $PODMAN_MACHINE_RUNNING=="" ]]; then
-        echo >&2 "Starting Podman Machine"
-        podman machine start ${PODMAN_MACHINE%?}
-    fi     
+    # # Check if podman machine is running
+    # PODMAN_MACHINE_RUNNING=$(podman machine inspect ${PODMAN_MACHINE%?} | grep "State" | grep -o '"[^"]*"$')
+    # if [[ $PODMAN_MACHINE_RUNNING=="" ]]; then
+    #     echo >&2 "Starting Podman Machine"
+    #     podman machine start ${PODMAN_MACHINE%?}
+    # fi     
     
     # if a Postgres container is running, print instructions to kill it and exit
     RUNNING_POSTGRES_CONTAINER=$(podman ps --filter 'name=postgres' --format '{{.ID}}')
