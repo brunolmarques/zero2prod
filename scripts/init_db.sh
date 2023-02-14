@@ -32,12 +32,12 @@ DB_PORT="${POSTGRES_PORT:=5432}"
 # Launch postgres using Podman
 if [[ $1 ]]
 then
-    # Initialize podman VM
-    PODMAN_MACHINE=$(podman machine list --format "{{.Name}}")
-    if ! [[ -n ${PODMAN_MACHINE%?} ]]; then
-        echo >&2 "Initializing Podman Machine"
-        podman machine init
-    fi
+    # # Initialize podman VM
+    # PODMAN_MACHINE=$(podman machine list --format "{{.Name}}")
+    # if ! [[ -n ${PODMAN_MACHINE%?} ]]; then
+    #     echo >&2 "Initializing Podman Machine"
+    #     podman machine init
+    # fi
     
     # Check if podman machine is running
     PODMAN_MACHINE_RUNNING=$(podman machine inspect ${PODMAN_MACHINE%?} | grep "State" | grep -o '"[^"]*"$')
