@@ -1,17 +1,16 @@
 name: Rust Book -> Zero To Prodution
 run-name: Continuous Integration Pipeline Running!
 
-on: [push, pull_request]
-  # NB: this differs from the book's project!
-  # These settings allow us to run this specific CI pipeline for PRs against
-  # this specific branch (a.k.a. book chapter).
-  # push:
-  #   branches:
-  #     - root-chapter-03-part1
-  # pull_request:
-  #   types: [ opened, synchronize, reopened ]
-  #   branches:
-  #     - root-chapter-03-part1
+on: 
+  # These settings allow us to run this specific CI pipeline for PRs 
+  # against specific branch.
+  push:
+    branches:
+      - validation
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+    branches:
+      - ci
 
 env:
   CARGO_TERM_COLOR: always
