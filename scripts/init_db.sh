@@ -33,7 +33,7 @@ DB_PORT="${POSTGRES_PORT:=5432}"
 if [[ $1 ]]
 then
     # # Initialize podman VM
-    # PODMAN_MACHINE=$(podman machine list --format "{{.Name}}")
+    PODMAN_MACHINE=$(podman machine list --format "{{.Name}}")
     # if ! [[ -n ${PODMAN_MACHINE%?} ]]; then
     #     echo >&2 "Initializing Podman Machine"
     #     podman machine init
