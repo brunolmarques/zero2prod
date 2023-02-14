@@ -9,8 +9,8 @@ on:
       - validation
   pull_request:
     types: [ opened, synchronize, reopened ]
-    branches:
-      - ci
+    # branches:
+    #   - ci
 
 env:
   CARGO_TERM_COLOR: always
