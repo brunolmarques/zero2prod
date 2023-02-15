@@ -132,7 +132,7 @@ jobs:
           POSTGRES_PASSWORD: password
           POSTGRES_DB: postgres
         ports:
-          - 5430:5430
+          - 5431:5431
     env:
       # Define sqlx version and features
       SQLX_VERSION: 0.6.2
@@ -203,7 +203,7 @@ jobs:
           POSTGRES_PASSWORD: password
           POSTGRES_DB: postgres
         ports:
-          - 5430:5430
+          - 5432:5432
     env:
       # Define sqlx version and features
       SQLX_VERSION: 0.6.2
