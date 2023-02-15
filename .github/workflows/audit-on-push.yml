@@ -1,14 +1,22 @@
+# Name of the job
 name: Security audit
+# Define job triggers
 on:
+  # For every push
   push:
+    # Check specific paths
     paths:
       - '**/Cargo.toml'
       - '**/Cargo.lock'
 jobs:
   security_audit:
+    # Defines runner version, options: Windows, Linux and MacOS
     runs-on: ubuntu-latest
     steps:
+      # Checkout creates a copy of the repo in the runner, so code can be accessed 
       - uses: actions/checkout@v1
+      # Rust specific action
+      # Runs a security vunerability audit on dependencies crates
       - uses: actions-rs/audit-check@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}

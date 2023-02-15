@@ -1,26 +1,29 @@
 name: Rust Book -> Zero To Prodution
 run-name: Continuous Integration Pipeline Running!
 
-on:
-  # NB: this differs from the book's project!
-  # These settings allow us to run this specific CI pipeline for PRs against
-  # this specific branch (a.k.a. book chapter).
+on: 
+  # These settings allow us to run this specific CI pipeline for PRs 
+  # against specific branch.
   push:
     branches:
-      - root-chapter-03-part1
+      - validation
   pull_request:
     types: [ opened, synchronize, reopened ]
-    branches:
-      - root-chapter-03-part1
+    # branches:
+    #   - ci
 
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
   test:
+    # Name of the job
     name: Test
+    # Defines runner version, options: Windows, Linux and MacOS
     runs-on: ubuntu-latest
+    # Pre-install services on runner image
     services:
+      # Define Postgress version and access pattern
       postgres:
         image: postgres:12
         env:
@@ -30,35 +33,42 @@ jobs:
         ports:
           - 5432:5432
     env:
+      # Define sqlx version and features
       SQLX_VERSION: 0.6.2
       SQLX_FEATURES: "rustls,postgres"
+    # Define actions for the runner
     steps:
+      # Checkout creates a copy of the repo in the runner, so code can be accessed 
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+      # Cache creates a local copy of the specified paths, helps improve execution time,
+      # however it may require a larger memory footprint
       - name: Cache dependencies
         id: cache-dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             ~/.cargo/registry
             ~/.cargo/git
             target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
+      # Action specific for Rust, installs Rust toolchain with rustup
       - name: Install stable toolchain
         uses: actions-rs/toolchain@v1
         with:
           profile: minimal
           toolchain: stable
           override: true
-
+      # Cache sqlx
       - name: Cache sqlx-cli
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: cache-sqlx
         with:
           path: |
             ~/.cargo/bin/sqlx
           key: ${{ runner.os }}-sqlx-${{ env.SQLX_VERSION }}
-
+      # Allows GitHub actions to run specific `cargo` commands
+      # Force a installation of sqlx if previous step didn't work
       - name: Install sqlx-cli 
         uses: actions-rs/cargo@v1
         if: steps.cache-sqlx.outputs.cache-hit == false
@@ -71,34 +81,50 @@ jobs:
             --features ${{ env.SQLX_FEATURES }}
             --no-default-features
             --locked
+      # Installs podman on runner
+      - name: Setup Podman
+        run: |
+            sudo apt-get -y install podman
+      # Install libpq, necessary for Postgres interface
+      # Runs the scrip that initialize Postgres
       - name: Migrate database
         run: |
           sudo apt-get install libpq-dev -y
-          SKIP_DOCKER=true ./scripts/init_db.sh
+          ./scripts/init_db.sh true
+      # Test the cargo package
       - name: Run cargo test
         uses: actions-rs/cargo@v1
         with:
           command: test
 
   fmt:
+    # Name of the job
     name: Rustfmt
+    # Defines runner version, options: Windows, Linux and MacOS
     runs-on: ubuntu-latest
     steps:
+      # Checkout creates a copy of the repo in the runner, so code can be accessed
       - uses: actions/checkout@v2
+      # Action specific for Rust, installs Rust toolchain and rustfmt with rustup
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
           override: true
           components: rustfmt
+      # Allows GitHub actions to run specific `cargo` commands
+      # Runs a format check on cargo    
       - uses: actions-rs/cargo@v1
         with:
           command: fmt
           args: --all -- --check
 
   clippy:
+    # Name of the job
     name: Clippy
+    # Defines runner version, options: Windows, Linux and MacOS
     runs-on: ubuntu-latest
     services:
+      # Define Postgress version and access pattern
       postgres:
         image: postgres:12
         env:
@@ -108,19 +134,21 @@ jobs:
         ports:
           - 5432:5432
     env:
+      # Define sqlx version and features
       SQLX_VERSION: 0.6.2
       SQLX_FEATURES: "rustls,postgres"
     steps:
+      # Checkout creates a copy of the repo in the runner, so code can be accessed
       - name: Checkout repository
         uses: actions/checkout@v2
-
+      # Action specific for Rust, installs Rust toolchain and clippy with rustup
       - name: Install stable toolchain
         uses: actions-rs/toolchain@v1
         with:
           components: clippy
           toolchain: stable
           override: true
-
+      # Cache sqlx
       - name: Cache sqlx-cli
         uses: actions/cache@v2
         id: cache-sqlx
@@ -128,7 +156,8 @@ jobs:
           path: |
             ~/.cargo/bin/sqlx
           key: ${{ runner.os }}-sqlx-${{ env.SQLX_VERSION }}
-
+      # Allows GitHub actions to run specific `cargo` commands
+      # Force a installation of sqlx if previous step didn't work
       - name: Install sqlx-cli 
         uses: actions-rs/cargo@v1
         if: steps.cache-sqlx.outputs.cache-hit == false
@@ -141,10 +170,19 @@ jobs:
             --features ${{ env.SQLX_FEATURES }}
             --no-default-features
             --locked
+      # Installs podman on runner
+      - name: Setup Podman
+        run: |
+            sudo apt update
+            sudo apt-get -y install podman
+      # Install libpq, necessary for Postgres interface
+      # Runs the scrip that initialize Postgres      
       - name: Migrate database
         run: |
           sudo apt-get install libpq-dev -y
-          SKIP_DOCKER=true ./scripts/init_db.sh
+          ./scripts/init_db.sh true
+      # Rust specifict action
+      # Lints code base and display warnings
       - name: Run clippy
         uses: actions-rs/clippy-check@v1
         with:
@@ -152,9 +190,12 @@ jobs:
           args: -- -D warnings
 
   coverage:
+    # Name of the job
     name: Code coverage
+    # Defines runner version, options: Windows, Linux and MacOS
     runs-on: ubuntu-latest
     services:
+      # Define Postgress version and access pattern
       postgres:
         image: postgres:12
         env:
@@ -164,18 +205,20 @@ jobs:
         ports:
           - 5432:5432
     env:
+      # Define sqlx version and features
       SQLX_VERSION: 0.6.2
       SQLX_FEATURES: "rustls,postgres"
     steps:
+      # Checkout creates a copy of the repo in the runner, so code can be accessed
       - name: Checkout repository
         uses: actions/checkout@v2
-
+      # Action specific for Rust, installs Rust toolchain with rustup
       - name: Install stable toolchain
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
           override: true
-
+      # Cache sqlx
       - name: Cache sqlx-cli
         uses: actions/cache@v2
         id: cache-sqlx
@@ -183,7 +226,8 @@ jobs:
           path: |
             ~/.cargo/bin/sqlx
           key: ${{ runner.os }}-sqlx-${{ env.SQLX_VERSION }}
-
+      # Allows GitHub actions to run specific `cargo` commands
+      # Force a installation of sqlx if previous step didn't work
       - name: Install sqlx-cli 
         uses: actions-rs/cargo@v1
         if: steps.cache-sqlx.outputs.cache-hit == false
@@ -196,10 +240,19 @@ jobs:
             --features ${{ env.SQLX_FEATURES }}
             --no-default-features
             --locked
+      # Installs podman on runner
+      - name: Setup Podman
+        run: |
+            sudo apt update
+            sudo apt-get -y install podman
+      # Install libpq, necessary for Postgres interface
+      # Runs the scrip that initialize Postgres      
       - name: Migrate database
         run: |
           sudo apt-get install libpq-dev -y
-          SKIP_DOCKER=true ./scripts/init_db.sh
+          ./scripts/init_db.sh true
+      # Rust specific action
+      # Installs and runs `cargo-tarpaulin` 
       - name: Run cargo-tarpaulin
         uses: actions-rs/tarpaulin@v0.1
         with:
